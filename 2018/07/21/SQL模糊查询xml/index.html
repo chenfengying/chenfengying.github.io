@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SQL模糊查询xml - Hexo</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Summer,"> 
+    <meta name="description" content="背景：在工作中，有使用到sql的xml查询，一个table 中与一个字段为xml ，比如message_Body
+mesage_body中有xml文件如下
+单节点
+多节点1.问牛人select to,"> 
+    <meta name="author" content="Summer"> 
+    <link rel="alternative" href="atom.xml" title="Hexo" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.jpg"> 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <link rel="stylesheet" href="/css/diaspora.css">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({
+              google_ad_client: "ca-pub-8691406134231910",
+              enable_page_level_ads: true
+         });
+    </script>
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
+</head>
+
+<body class="loading">
+    <span id="config-title" style="display:none">Hexo</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <a class="icon-home image-icon" href="javascript:;" data-url="https://chenfengying.github.io"></a>
+    <div title="播放/暂停" class="icon-play"></div>
+    <h3 class="subtitle">SQL模糊查询xml</h3>
+    <div class="social">
+        <!--<div class="like-icon">-->
+            <!--<a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+        <!--</div>-->
+        <div>
+            <div class="share">
+                <a title="获取二维码" class="icon-scan" href="javascript:;"></a>
+            </div>
+            <div id="qr"></div>
+        </div>
+    </div>
+    <div class="scrollbar"></div>
+</div>
+
+    <div class="section">
+        <div class="article">
+    <div class='main'>
+        <h1 class="title">SQL模糊查询xml</h1>
+        <div class="stuff">
+            <span>七月 21, 2018</span>
+            
+
+        </div>
+        <div class="content markdown">
+            <p>背景：<br>在工作中，有使用到sql的xml查询，一个table 中与一个字段为xml ，比如message_Body</p>
+<p>mesage_body中有xml文件如下</p>
+<p>单节点</p>
+<p>多节点<br>1.问牛人<br>select top 100 <em> from test with (nolock)<br>where Message_Body.value(‘(//</em>:CustomerInvoice/@SONumber)[1]’,’varchar(50)’)<br>in (‘test125500210349’,’test120021034925530052555’)<br>order by Indate desc</p>
+<p>2.补补基础，喝喝鸡汤:<br>在网上查询了一些博客， 学习了xml的基础知识</p>
+<p>xml的类型数据方法：链接：<a href="https://docs.microsoft.com/zh-cn/previous-versions/sql/sql-server-2005/ms178030%28v%3dsql.90%29" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/previous-versions/sql/sql-server-2005/ms178030%28v%3dsql.90%29</a></p>
+<p>别人的xml的学习总结，链接：<a href="http://www.cnblogs.com/huyong/archive/2012/01/18/2685599.html" target="_blank" rel="noopener">http://www.cnblogs.com/huyong/archive/2012/01/18/2685599.html</a></p>
+<p>xpath 的学习总结，链接：<a href="http://www.360doc.com/content/15/1031/18/22232269_509697565.shtml" target="_blank" rel="noopener">http://www.360doc.com/content/15/1031/18/22232269_509697565.shtml</a></p>
+<p>回看之前给的模板，明白用的是xpath的标准查询语法， 通过了解用法，才知道为什么有些invoice 查询不出来。模板只能查询到第一个customerinvoice的属性值，如果需要的invoicenumber在其他节点的话，就查询不到，那么我把模板的../@InvoiceNumber)[1] 中的[1]改成2,3,4.就能查询到在第2个节点，第3个节点的属性值了（也可以将模板的xquery表达式替换成’(//@InvoiceNumber)[1]’）。但是不可能每次去试吧~~~， </p>
+<p>3.功力不够，没有yy出来：<br> 继续各种YY， 发现如果把多节点的xml单独拿出来search, 是可以拿到多个属性值的。去掉where rowid=250,就查询不到所有的属性值了，疑惑╮(╯▽╰)╭</p>
+<p>declare @x xml<br>select @x=message_body  from test where rowid=250<br>SELECT T1.rows.value(‘@InvoiceNumber’,’nvarchar(50)’) as id<br>FROM @x.nodes(‘//*:CustomerInvoice’) T1(rows)</p>
+<p>4.寻求高人指点迷津<br>  一早就在google 找到答案，打脸<br><!--
+select * from (
+select
+    s.RowID,
+    m.c.value('@InvoiceNumber', 'varchar(max)') as id 
+from test as s
+    outer apply s.Message_Body.nodes('//*:CustomerInvoice') as m(c)) as t
+where id='12324323423423'
+--></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+                <ul id="audio-list" style="display:none">
+                    
+                        <li title='0' data-url='http://link.hhtjim.com/163/5146554.mp3'></li>
+                    
+                        <li title='1' data-url='http://link.hhtjim.com/qq/001faIUs4M2zna.mp3'></li>
+                    
+                </ul>
+            
+        </div>
+        
+    <div id='gitalk-container' class="comment link"
+        data-ae='false'
+        data-ci=''
+        data-cs=''
+        data-r=''
+        data-o=''
+        data-a=''
+        data-d='false'
+    >查看评论</div>
+
+
+    </div>
+    
+</div>
+
+
+    </div>
+</div>
+</body>
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="//lib.baomitu.com/jquery/1.8.3/jquery.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/diaspora.js"></script>
+<link rel="stylesheet" href="/photoswipe/photoswipe.css">
+<link rel="stylesheet" href="/photoswipe/default-skin/default-skin.css">
+<script src="/photoswipe/photoswipe.min.js"></script>
+<script src="/photoswipe/photoswipe-ui-default.min.js"></script>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</html>
