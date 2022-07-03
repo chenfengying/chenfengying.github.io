@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>笨笨三脚猫</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="笨笨三脚猫">
+<meta property="og:url" content="https://chenfengying.github.io/page/2/index.html">
+<meta property="og:site_name" content="笨笨三脚猫">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="笨笨三脚猫">
+  
+    <link rel="alternate" href="/atom.xml" title="笨笨三脚猫" type="application/atom+xml">
+  
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">笨笨三脚猫</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://chenfengying.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-how-to-locate-the-page-element-if-the-page-is-keeping-change" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/06/25/how-to-locate-the-page-element-if-the-page-is-keeping-change/" class="article-date">
+  <time datetime="2021-06-25T13:20:59.000Z" itemprop="datePublished">2021-06-25</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Selenium/">Selenium</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/06/25/how-to-locate-the-page-element-if-the-page-is-keeping-change/">how to locate the page element if the page is keeping change</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>场景<br>传统定位方式是从Chrome中直接复制下目标元素的XPath进行定位。所以经常会在代码里面看到很长很长的一串的定位字符串, 这样的定位代码既难度，又容易失效。</p>
+<p>实践<br>假设现在有一个自动化的用例是：打开JD商城，搜索“Google测试之道”，然后找到“Google软件测试之道 英文版”的这条记录，点进去最后验证书店名称和价格。</p>
+<p>那么按照传统做法，复制下这条记录的XPath，以定位这个商品，再做后续操作：</p>
+<p>xpath1 = /html/body/div[6]/div[2]/div[2]/div[1]/div/div[2]/ul/li[3]/div/div[1]/a/img</p>
+<p>或</p>
+<p>xpath1 = //*[@id=”J_goodsList”]/ul/li[3]/div/div[1]/a/img</p>
+<p>我们来解读下这个XPath2：解释器会先找到id为J_goodsList这个元素，然后找到这个元素下的第一个ul标签，再去找到ui下面的第 3 个li，以此类推，最后找到目标a标签。这样根据XML(html)文档结构的绝对位置产生的定位方式，我喜欢叫它绝对路径定位。</p>
+<p>那么问题来了，有如下场景:</p>
+<p>假设产品给了个新需求，要求商品默认按照价格降序排序；<br>或者是测试场景变更为：先删除第三个商家的产品，然后再定位到“Google软件测试之道 英文版”这条记录<br>这时候页面的文档结构必然发生改变的时候(商品位置变更)，之前定位的绝对位置指向的元素就发生了改变，那不得又得重新维护一次脚本了？</p>
+<p>所以是时候重新考虑一下定位方式了。观察后发现，数据变化后仅会引起商品绝对位置的改变，对商品内部的icon，文字描述等则没有影响。那么，使用相对模糊的定位方式，应该可以解决这个问题。根据之前定位器优先级的调研结果，优先考虑使用手写xpath。</p>
+<p>如何手写xpath, 请参考文章:</p>
+<p>  <a href="https://zhuanlan.zhihu.com/p/128521874" target="_blank" rel="noopener">测试曾哥：[Selenium]12.加餐: 如何手写xpath</a></p>
+<p>还是以上面的例子, 我们来看一下页面代码:<br>  <img src="/2021/06/25/how-to-locate-the-page-element-if-the-page-is-keeping-change/JavaScript.jpg" alt="javascript"></p>
+<p>想要定位到某个元素的话，首先应该考虑这个元素有没有唯一属性，例如id。</p>
+<p>如果没有唯一属性的话，再考虑从这个元素的父元素、祖宗元素、隔壁元素中找到唯一属性，然后再定位到这个元素. 对商品来讲, sku一般都不会改变. 因此, 我们可以找到data-sku这个属性, 因为这是唯一, 不管顺序如何变化, 找到sku, 就能找到该商品.</p>
+<p>xpath = //li[@data-sku=11967003]/div/div/a</p>
+<p>xpath = //li[@data-sku=11967003]//a</p>
+<p>这样一来，不管这个页面对象的位置如何改变，只要改商品的唯一标志，即sku不变，测试用例都不需要额外的维护了。</p>
+<p>Python代码</p>
+<p>#!/usr/bin/env python</p>
+<p>#-<em>- coding: utf-8 -</em>-</p>
+<p>from selenium import webdriver<br>from time import sleep<br>import os</p>
+<p>from selenium.webdriver.common.keys import Keys<br>wd = webdriver.Firefox()<br>wd.get(‘<a href="https://www.jd.com/&#39;" target="_blank" rel="noopener">https://www.jd.com/&#39;</a>)<br>wd.find_element_by_xpath(‘//<em>[@id=”key”]’).send_keys(‘Google测试之道’)<br>wd.find_element_by_xpath(‘//</em>[@id=”key”]’).send_keys(Keys.ENTER)<br>sleep(1)</p>
+<p>#wd.find_element_by_xpath(‘//*[@id=”J_goodsList”]/ul/li[3]/div/div[1]/a/img’).click()</p>
+<p>#wd.find_element_by_xpath(‘//li[@data-sku=11967003]/div/div/a’).click()    #Google软件测试之道 英文版<br>wd.find_element_by_xpath(‘//li[@data-sku=11967003]//a’).click()     #Google软件测试之道 英文版</p>
+<p>sleep(1)<br>wd.quit()</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenfengying.github.io/2021/06/25/how-to-locate-the-page-element-if-the-page-is-keeping-change/" data-id="cl55eygps000ossvli5mc7ewm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-selenium-question-and-answer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/06/22/selenium-question-and-answer/" class="article-date">
+  <time datetime="2021-06-22T13:47:36.000Z" itemprop="datePublished">2021-06-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Selenium/">Selenium</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/06/22/selenium-question-and-answer/">selenium question and answer</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.Difference between get and navigate method in Selenium?<br>  get()-click<br>  navigate()-back,forward or refresh</p>
+<ol start="2">
+<li><p>Difference  between quit and close methods in webdriver?<br>close– current focus in brower<br>quit –all opened browers</p>
+</li>
+<li><p>Difference between implicit and explicit wait?</p>
+</li>
+<li><p>How many ways we can handle frames in the application using webdriver?<br>frames-driver.switchto().frame(id)-id,name ,frame w webelement</p>
+</li>
+<li><p>code to handle 3 child window?<br> driver = webdriver.Chrome()<br> all_handles = driver.window_handles ##all windower</p>
+<p> #java:<br>  Set<string>s=Driver.getWindowHandles();<br>  it=s.iterator();<br>  it.next()// 0 index of set box<br>  it.next() //1 index of set box<br>  String windowid3rd=it.next;//2 index of set box<br>  Driver.switchto().window(windowid3rd)</string></p>
+</li>
+<li><p>how to handle https certifications?<br>DesiredCapabilities cap=DesiredCapabilities.chrome();<br>//Set ACCEPT_SSL_CERTS variable to true<br>cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS,true);</p>
+<ol start="7">
+<li>Difference type of locators present in webdriver?<br>xpath，css,id,name,classname,linktext<br>8 .write syntax for xpath and Css if id and tag are give<br>Xpath syntax=//tagname[@id=’value’]<br>Css=tagname[id=value]<br>9.How to use Contains regular expression to xpath<br>eg: is=uo12,uo34<br>//tagname[contains(@id,’uo’)]<br>10, how to use regular expression to CSS?<br>Tagname[id*=’uo’]<br>11.what is the class available in selenium to handle drop down?<br>select<br>12, what is the method to check if checkbox is select?<br>Driver.findElement(‘locator’).isSelected()//true</li>
+<li>how to validate if element is visible or hidden in webpage?<br>Driver.findElement(‘locator’).isDisplayed//true<br>14 how to enter the text in caps lock?<br>dirver.findElement(By.xpath(“fdfd”)).sendKeys(keys.SHIFF,’hello’)</li>
+<li><p>how to mouse over on the web element on page?<br>Actions  a=new Actions(driver);<br>a.moveToElement(locator).build().perform();</p>
+<ol start="16">
+<li>methods to handle java alert<br>driver.switchTo.alert()<br>17 how to get lins count in the pages?<br>dirver.findElement(By.tagName(‘a’)).size();<br>18 how to validate if we are navigate to child window successfully?<br>diver.getTitle()<br>19 difference between relative and absolute xpath<br>absolute –html/body – to actual element<br>relative</li>
+</ol>
+<p>20  difference between find element and find elements</p>
+<p>21 hwo to take screenshots with selenium webdriver<br>get_screenshot_as_file()<br>22 , how to hit enter key from webdriver commands<br>driver.findElement(By(locator)).sendKeys(Keys.ENTER)<br>Use these codes from the API docs: <a href="http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.common.keys" target="_blank" rel="noopener">http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.common.keys</a></p>
+</li>
+</ol>
+</li>
+</ol>
+<p>Eg. ENTER would be .send_keys(u’\ue007’)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenfengying.github.io/2021/06/22/selenium-question-and-answer/" data-id="cl55eygq70011ssvl5rvgl4p7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-python-selenium中的Implicit-Waits-Explicit-Waits-sleep" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/06/22/python-selenium中的Implicit-Waits-Explicit-Waits-sleep/" class="article-date">
+  <time datetime="2021-06-22T13:35:34.000Z" itemprop="datePublished">2021-06-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Selenium/">Selenium</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/06/22/python-selenium中的Implicit-Waits-Explicit-Waits-sleep/">python+selenium中的Implicit Waits/Explicit Waits/sleep</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>selenium定位元素时，有些元素需要等待一段时间始出来，从而才能定位到，继而才能进行下一步的操作，详细了解一下selenium中几种等待的方式</p>
+<h1 id="sleep"><a href="#sleep" class="headerlink" title="sleep"></a>sleep</h1><p>sleep是time模块下的一个方法，默认单位是seconds</p>
+<p>from time import sleep<br>from selenium import webdriver</p>
+<p>driver = webdriver.Chrome()<br>driver.get(“<a href="http://www.baidu.com&quot;" target="_blank" rel="noopener">http://www.baidu.com&quot;</a>)<br>sleep(5)</p>
+<p>Explain:</p>
+<p>在打开网址<a href="http://www.baidu.com后，会等待5秒钟后再进行下面的步骤。" target="_blank" rel="noopener">www.baidu.com后，会等待5秒钟后再进行下面的步骤。</a><br>缺点<br>很明显，每一个元素可能需要加载的地方都需要设置sleep等待时间，非常繁琐</p>
+<h1 id="Implicit-Wait"><a href="#Implicit-Wait" class="headerlink" title="Implicit Wait"></a>Implicit Wait</h1><p>selenium webdriver提供的方法之一，隐式等待</p>
+<p>from time import sleep<br>from selenium import webdriver<br>driver = webdriver.Chrome()<br>driver.implicitly_wait(10) # 设置隐式等待时间为10s<br>driver.get(“<a href="http://www.baidu.com&quot;" target="_blank" rel="noopener">http://www.baidu.com&quot;</a>)<br>driver.find_element_by_css_selector(“#kw”).send_keys(“Python”)</p>
+<p>Explain:</p>
+<p>单位同样是seconds，不同的是隐式等待最多等待10s，如果10s内元素仍加载不了（判断元素是否存在于DOM中，判断频率默认是250 milliseconds），就会抛异常；如果元素“#kw”很快就加载出来了，就不用等待10s，会直接操作元素。</p>
+<p>优点<br>Once set, the implicit wait is set for the life of the WebDriver object. 隐式等待在driver的整个生命周期内都有效。也就是说，driver在没有被close()之前，定位每个元素时，都会有隐式等待的10s，也就是说，只需要设置一次，所有的元素都可有最多10s的等待加载的时间。相比sleep要设置很多次，很方便了。</p>
+<p>缺点<br>implicit wait是检查元素是否存在于DOM，如果元素已经存在于DOM，就会结束等待，进行下一步操作；而有些元素可能已经存在于DOM，但是还需等待一段时间才能到可点的状态（clickable），因此使用implicit wait仍会因为等待时间不足而报错（比如，下拉框中元素的选择）</p>
+<h1 id="Explicit-Wait"><a href="#Explicit-Wait" class="headerlink" title="Explicit Wait"></a>Explicit Wait</h1><p>selenium webdriver提供的方法之一，显示等待</p>
+<p>from selenium.webdriver.common.by import By<br>from selenium.webdriver.support.ui import WebDriverWait<br>from selenium.webdriver.support import expected_conditions as EC<br>driver = webdriver.Chrome()<br>driver.get(“<a href="http://www.baidu.com&quot;" target="_blank" rel="noopener">http://www.baidu.com&quot;</a>)<br>wait = WebDriverWait(driver, 10) # 设置显示等待时间为10s<br>element = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ‘#kw’)))# 判断条件<br>element.send_keys(“Python”)</p>
+<p>Explain:</p>
+<p>显示等待是条件判断，判断元素#kw可点了，再去操作元素；如果#kw不可点，默认每50<br>milliseconds去判断下条件，如果10s内还不可点，就抛出异常。（更多的条件判断见官方文档：<a href="http://selenium-python.readthedocs.io/waits.html）" target="_blank" rel="noopener">http://selenium-python.readthedocs.io/waits.html）</a></p>
+<p>优点<br>弥补了implicit wait的不足，可以通过判断一些条件，再去决定是否等待下去</p>
+<p>缺点<br>当然是写起来麻烦啦，如果要用到，可以考虑封装起来用</p>
+<h1 id="Fluent-Waits"><a href="#Fluent-Waits" class="headerlink" title="Fluent Waits"></a>Fluent Waits</h1><p>FluentWait是Java selenium中的另一种wait的方式，与Explicit Wait类似，可以定义等待结束的条件、等待的最大时长以及判断元素是否满足条件的频率</p>
+<p>综上：Selenium+Python建议implicit wait与explicit wait结合使用；在有必要的时候要用explicit wait<br>此外，time.sleep()在截图等待时，可以把以上所有方法比的下去</p>
+<p>References<br><a href="https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/support/ui/FluentWait.html" target="_blank" rel="noopener">https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/support/ui/FluentWait.html</a><br><a href="http://toolsqa.com/selenium-webdriver/implicit-explicit-n-fluent-wait/" target="_blank" rel="noopener">http://toolsqa.com/selenium-webdriver/implicit-explicit-n-fluent-wait/</a><br><a href="http://selenium-python.readthedocs.io/waits.html#implicit-waits" target="_blank" rel="noopener">http://selenium-python.readthedocs.io/waits.html#implicit-waits</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenfengying.github.io/2021/06/22/python-selenium中的Implicit-Waits-Explicit-Waits-sleep/" data-id="cl55eygq2000xssvlv6hfrlmv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Install-Selenium-and-webdriver" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/06/22/Install-Selenium-and-webdriver/" class="article-date">
+  <time datetime="2021-06-22T11:01:47.000Z" itemprop="datePublished">2021-06-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Selenium/">Selenium</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/06/22/Install-Selenium-and-webdriver/">Install Selenium and webdriver</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Step1"><a href="#Step1" class="headerlink" title="Step1"></a>Step1</h1><p>First you should check that your computer installed selenium or not .</p>
+<p>in your cmd window, you can type the command below:</p>
+<p> pis show selenium (or pip3 show selenium)</p>
+<h1 id="Step2"><a href="#Step2" class="headerlink" title="Step2"></a>Step2</h1><p>if you dont intall it yet , then you should type this command below:</p>
+<p>pip install selenium</p>
+<p>after you installed the selenium, you can still use the step1’s command to confirm</p>
+<h1 id="step3"><a href="#step3" class="headerlink" title="step3"></a>step3</h1><p>after the selenium installed , you should install the webdriver which you want , if you use chrome , then<br>you should download the chrome webdriver which match your chrome brower’s version , if you use Firefox ,then<br>you must install the firefox webdriver. i will give the chrome webdriver as the example below:</p>
+<p>you can access the web page: <a href="https://chromedriver.chromium.org/downloads" target="_blank" rel="noopener">https://chromedriver.chromium.org/downloads</a><br>if you cannot access the google , then you can try this website:<a href="https://npm.taobao.org/mirrors/chromedriver" target="_blank" rel="noopener">https://npm.taobao.org/mirrors/chromedriver</a></p>
+<p>my brower verison ：<br>  <img src="/2021/06/22/Install-Selenium-and-webdriver/chrome-brower-version.png" alt="chrome version "></p>
+<p>then compare the webdriver verison, i choose the webdriver :<br>  <img src="/2021/06/22/Install-Selenium-and-webdriver/webdriver-version.png" alt="webdriver version"></p>
+<p>the package shows as zip , you should contract it , then copy this .exe file to python folder ,for example:<br>  <img src="/2021/06/22/Install-Selenium-and-webdriver/webdriver-location.png" alt="webdriver location"></p>
+<h1 id="step4"><a href="#step4" class="headerlink" title="step4"></a>step4</h1><p>Finally  you can try to control your brower now , you can type blow command to test , it is just open chrome and<br>direct to google search :</p>
+<p>from selenium import webdriver<br>brower=webdriver.Chrome()<br>browser.get(‘<a href="https://google.com&#39;" target="_blank" rel="noopener">https://google.com&#39;</a>)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenfengying.github.io/2021/06/22/Install-Selenium-and-webdriver/" data-id="cl55eygp30005ssvlusjobe5t" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-API限流" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/06/21/API限流/" class="article-date">
+  <time datetime="2021-06-21T07:32:54.000Z" itemprop="datePublished">2021-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Test-Basic-Security/">Test Basic-Security</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/06/21/API限流/">API限流</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>限流，顾名思义，就是限制对 API 的调用频率。每一次 API 调用，都要花费服务器的资源，因此很多 API 不会对用户无限次地开放，请求达到某个次数后就不再允许访问了，或者一段时间内，最多只允许访问 API 指定次数。如果接口是没有任何限流措施的，只要用户调用接口，服务器就会处理并返回数据，为了防止接口被恶意用户刷爆，我们来给接口限流。</p>
+<p>目前了解到我们公司可以有两种方式可以对API进行限流，一种是通过API Gateway，另外一种是我们公司的同事Victor.X.Qu开发的Norns.Urd（它是一个基于emit实现动态代理的轻量级AOP框架）。</p>
+<p>API Gateway<br>可以通过Develop Portal的API Gateway的UI针对某个API进行限流设置。</p>
+<p>Norns.Urd<br>了解Norns.Urd前，我们需要对其使用的技术做一些基本的了解。</p>
+<p>AOP<br>什么是AOP<br>面向切面的程序设计（Aspect-oriented programming，AOP，又译作面向方面的程序设计、剖面导向程序设计）是计算机科学中的一种程序设计范型，旨在将横切关注点与业务主体进行进一步分离，以提高程序代码的模块化程度。</p>
+<p>通过在现有代码基础上增加额外的通知（Advice）机制，能够对被声明为“切点（Pointcut）”的代码块进行统一管理与装饰。</p>
+<p>通过预编译方式和运行期间动态代理实现程序功能的统一维护的一种编程思想。</p>
+<p>AOP术语<br>切面<br>切面泛指交叉业务逻辑。比如事物处理，日志处理就可以理解为切面。</p>
+<p>常用的切面有通知与顾问。</p>
+<p>实际就是对主业务逻辑的一种增强。</p>
+<p>通知<br>通知（Advice）是切面的一种实现，可以完成简单织入功能（织入功能就是在这里完成的）。</p>
+<p>通知定义了增强代码切入到目标代码的时间点，是目标方法执行之前执行，还是之后执行等。</p>
+<p>通知类型不同，切入时间不同。</p>
+<p>顾问<br>顾问（Advisor）是切面的另一种实现，能够将通知以更为复杂的方式织入到目标对象中，是将通知包装为更复杂切面的装配器。</p>
+<p>不仅指定了切入时间点，还可以指定具体的切入点。</p>
+<p>连接点    连接点指切面可以织入的位置<br>切入点    切入点指切面具体织入的位置<br>AOP实现方式<br>前置通知（MethodBeforeAdvice)    目标方法执行之前调用<br>后置通知（AfterReturningAdvice）    目标方法执行完成之后调用<br>环绕通知（MethodInterceptor）    目标方法执行前后都会调用方法，且能增强结果<br>异常处理通知（ThrowsAdvice）    目标方法出现异常调用<br>目的<br>理论上程序中任何公共处理的逻辑，都可以独立出来用AOP实现，一般在工程实际中用AOP是为了实现系统级服务与应用的业务逻辑之间的彻底分离。</p>
+<p>适用场景<br>AOP 将这种行为称为横切，它们跨越了给定编程模型中的典型职责界限。横切行为的实现都是分散的，软件设计师会发现这种行为难以用正常的逻辑来思考、实现和更改。</p>
+<p>最常见的一些横切行为如下面这些：</p>
+<p>日志记录，跟踪，优化和监控<br>事务的处理<br>持久化<br>性能的优化<br>资源池，如数据库连接池的管理<br>系统统一的认证、权限管理等<br>应用系统的异常捕捉及处理<br>针对具体行业应用的横切行为<br>Norns.Urd<br>Norns.Urd 是一个基于emit实现动态代理的轻量级AOP框架。Norns.Urd在baymax的最新版本已经有集成了。在Norns.Urd中，Interceptor 拦截器是用户可以在方法插入自己的逻辑的核心。</p>
+<p>Norns.Urd使用起来更灵活，比如：访问API失败的次数每分钟达到500次，就对API进行限制访问。这种定制需求通过API Gateway无法实现，可以使用Norns.Urd通过开发编码灵活实现，但同时带来更多的开发成本。</p>
+<p>其使用说明文档：Norns.Urd | A dynamic weaving aop framework base on Emit (fs7744.github.io)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenfengying.github.io/2021/06/21/API限流/" data-id="cl55eygoi0000ssvludxqpo0z" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Response-Head泄漏" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/06/21/Response-Head泄漏/" class="article-date">
+  <time datetime="2021-06-21T07:30:26.000Z" itemprop="datePublished">2021-06-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Test-Basic-Security/">Test Basic-Security</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/06/21/Response-Head泄漏/">Response Head泄漏</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.1  那些敏感的HEADER<br>在上图中圈出的部分，我们关注以下几个字段（针对asp.net应用常见的，并非全部）：</p>
+<p>Server：web服务器的版本。通常我们会看到 “Microsoft-IIS/7.5”, “nginx/1.0.11” 和 “Apache”这样的字段。</p>
+<p>X-Powered-By：web应用框架信息。常见例子，“ASP.NET”, “PHP/5.2.17” 和“UrlRewriter.NET 2.0.0”。</p>
+<p>X-AspNet-Version: asp.net版本，只有asp.net站点有这样的header。</p>
+<p>X-AspNetMvc-Version:asp.net mvc 版本使用asp.net mvc框架会有此字段。</p>
+<p>通常情况下这些信息并不会直接带来危险，但是如果某一天IIS的某个版本爆了一个0day漏洞，那么攻击者会根据响应头在很短的时间内找到大批的IIS站点进行攻击。另外攻击者会根据搜集到的信息结合已有漏洞进行推论和尝试，正确的信息会加快攻击者找到漏洞的步伐。</p>
+<p>1.2 删除敏感的HEADER<br>接下来以我本地的asp.net mvcz站点为例，讲解如何删除响应头中的敏感字段。</p>
+<p>1.2.1 删除SERVER字段<br>这里需要用到IIS扩展工具Url Scan，关于Url Scan的安装和配置项说明见之前的博文《URL Scan简介》。<br>1.2.1 删除SERVER字段<br>这里需要用到IIS扩展工具Url Scan，关于Url Scan的安装和配置项说明见之前的博文《URL Scan简介》。</p>
+<p>打开URL Scan的配置文件（ C:\Windows\System32\inetsrv\urlscan\UrlScan.ini），找到“RemoveServerHeader”，将值设置为1。</p>
+<p>配置之前：</p>
+<p>配置之后：</p>
+<p>1.2.2 删除X-POWERED-BY字段<br>打开IIS管理器，切换到站点视图，打开“HTTP响应标头”。</p>
+<p>在这里删除X-Powered-By字段。</p>
+<p>1.2.3 删除 X-ASPNET-VERSION字段<br>打开站点下的web.config，做如下配置：</p>
+<p>&lt;system.web&gt;<br>  <httpruntime enableversionheader="false"><br>&lt;/system.web&gt;<br>1.2.4 删除X-ASPNETMVC-VERSION<br>打开Global.asax文件，在Application_Start函数中添加如下代码：</httpruntime></p>
+<p>MvcHandler.DisableMvcResponseHeader = true;<br>最后的结果：</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenfengying.github.io/2021/06/21/Response-Head泄漏/" data-id="cl55eygpc000bssvletssp315" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-英语的16种时态" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/06/18/英语的16种时态/" class="article-date">
+  <time datetime="2021-06-18T13:16:19.000Z" itemprop="datePublished">2021-06-18</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/English-Grammer/">English Grammer</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/06/18/英语的16种时态/">英语的16种时态</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>只有对时态有较为深刻的理解，才可能做到准确地使用时态。</p>
+<p>为了使大家对时态有一个更为直观的了解，接下来我会为每类时态绘一张图，以求用最简洁的方式表达出该时态的特点。首先，我先简单解释一下什么是时态。</p>
+<h1 id="什么是时态？"><a href="#什么是时态？" class="headerlink" title="什么是时态？"></a>什么是时态？</h1><p>时态就是表示一个动作发生的时间和所处的状态。</p>
+<p>“时”就是这个动作发生的“时间”；</p>
+<p>“态”就是这个动作在某个时刻的“状态”。</p>
+<h1 id="时间的定义"><a href="#时间的定义" class="headerlink" title="时间的定义"></a>时间的定义</h1><p>英语中把时间分为三类：过去（past）、现在（now）和将来（future）。</p>
+<p>  <img src="/2021/06/18/英语的16种时态/time.png" alt="time"><br>任何一个动作都必然是发生于过去、现在或将来。例如上图中的动作1发生在过去，动作2发生在现在，动作3发生在将来。</p>
+<h1 id="状态的定义"><a href="#状态的定义" class="headerlink" title="状态的定义"></a>状态的定义</h1><p>状态指的是在某个时刻这个动作所处于的状态。动词共有四类状态，分别为：一般式、进行式、完成式和进行完成式。</p>
+<p>一般式表示经常发生的动作，其动词形式为do。</p>
+<p>I often get up at 7.<br>（我经常在七点钟起床。）</p>
+<p>进行式表示正在进行的动作，其动词形式为“be动词 + doing”。</p>
+<p>She is singing a French song.<br>（她正在唱一首法语歌。）</p>
+<p>完成式表示对“之前发生动作”的一个总结，其动词形式为“have + done”：</p>
+<p>They have found the missing child.<br>（他们找到那个失踪的孩子了。）</p>
+<p>完成进行式表示对“正在进行动作”的一个总结，其动词形式为“have + been + doing”：</p>
+<p>I have been reading books for two hours.<br>（我已经连续读书两个小时了。）</p>
+<p>动词的十二类时态<br>我们将三类时间和四类状态组合，可得到下表所示的十二类时态。</p>
+<p>接下来将分别介绍这十二类时态的用法，介绍的顺序为：一般式、进行式、完成式、完成进行式。</p>
+<p>  <img src="/2021/06/18/英语的16种时态/verb-12status.png" alt="timestatus"></p>
+<p>#一般式<br>一般式常用来表示经常发生的动作。</p>
+<p>#1. 一般现在时（do）</p>
+<p>除了表示经常发生的动作外，一般现在时还可以用来表示客观事实。</p>
+<p>Light travels more quickly than sound.<br>（光传播的速度比声音快。）</p>
+<ol start="2">
+<li>一般过去时（did）</li>
+</ol>
+<p>一般过去时表示某个过去的时间点所发生的动作。</p>
+<p>① I used the pen before.<br>（我之前用过这支笔。）<br>将句①表述到时间轴中，我们用“空心圆点”来表示一般式，如下图所示：</p>
+<p>上图表示“use the pen”这个动作发生在过去的某个时间点。</p>
+<p>  <img src="/2021/06/18/英语的16种时态/Past-Simple.png" alt="time-status"></p>
+<ol start="3">
+<li>一般将来时（will do）</li>
+</ol>
+<p>一般将来时表示某个将来的时间点会发生的动作。</p>
+<p>② Phoebe will live in a modern city.<br>（Phoebe将在大城市生活。）<br>将句②表述到时间轴中，得到：</p>
+<p>  <img src="/2021/06/18/英语的16种时态/Furture.png" alt="future"></p>
+<p>上图表示“live in a modern city”这个动作会发生在某个将来的时间点。</p>
+<p>#进行式<br>进行式用来表示某个时刻或时间段正在进行的动作。</p>
+<ol start="4">
+<li>现在进行时（am/is/are doing）</li>
+</ol>
+<p>现在进行时表示现在正在进行的动作。</p>
+<p>③ I am playing tennis now.<br>（我正在打网球。）<br>将句③表述到时间轴中，由于“正在进行的动作”必定会延续一段时间，所以我们用“灰色矩形”来表示进行时，如下图：</p>
+<p>  <img src="/2021/06/18/英语的16种时态/present continuous.png" alt="Present"></p>
+<p>由上图所示，现在（now）这个时间点正处于表示“I am playing tennis”的灰色矩形里面，所以我们可以说“I am playing tennis now”。</p>
+<ol start="5">
+<li>过去进行时（was/were doing）</li>
+</ol>
+<p>过去进行时表示在某个过去的时间点或时间段正在进行的动作。</p>
+<p>④ They were watching TV when a stranger suddenly rushed in.<br>（当一个陌生人突然冲进来的时候，他们正在看电视。）<br>将句④表述到时间轴中，我们同样用“灰色矩形”来表示此时态：</p>
+<p>  <img src="/2021/06/18/英语的16种时态/past-continuous.png" alt="Present"></p>
+<p>由上图所示，我们用空心圆点表示“a stranger suddenly rushed in”这个过去时间点，其正处于表示“they were watching TV”的灰色矩形里面，两者组合便得到了句④。</p>
+<ol start="6">
+<li>将来进行时（will be doing）</li>
+</ol>
+<p>将来进行时表示在某个将来的时间点或时间段正在进行的动作，这类动作一般是事先计划好的，而且一定会发生的。</p>
+<p>⑤ We will be flying at 30 000 feet in five minutes.<br>（五分钟后，我们就会翱翔在三万英尺的高空了。）<br>将句⑤表述到时间轴中，可以得到：</p>
+<p>  <img src="/2021/06/18/英语的16种时态/future-continuous.png" alt="future"><br><img src="/2021/06/18/英语的16种时态/present-perfect.png" alt="future"></p>
+<p>由上图所示，我们用空心圆点表示“in five minutes”这个将来时间点，其正处于表示“We will be flying at 30 000 feet”的灰色矩形里面，两者组合便得到了句⑤。</p>
+<p>#完成式<br>完成式表示：站在某一时间点，对这个时间点之前发生的动作做一个总结。</p>
+<ol start="7">
+<li>现在完成时（have/has done）</li>
+</ol>
+<p>现在完成时表示处于现在这个时间点，对这个时间点之前发生的一个或一系列动作的总结。</p>
+<p>⑥ I have used the pen only three times.<br>（这支笔我只用过三次。）<br>将句⑥表述到时间轴中，因为完成式是对之前发生事情的一个总结，所以我们用“向左的方括号”来表示完成式，表示“至此为止，之前发生的一系列动作是这样的结果”。</p>
+<p>  <img src="/2021/06/18/英语的16种时态/present-perfect.png" alt="future"></p>
+<p>由上图所示，因为“use the pen”这个动作在过去发生了三次，所以我们处于现在（now）这个时间点来总结这三个动作，于是便得到了“I have used the pen only three times”的结论。</p>
+<ol start="8">
+<li>过去完成时（had done）</li>
+</ol>
+<p>过去完成时表示站在某个过去的时间点，对这个时间点之前发生的一个或一系列动作的总结。</p>
+<p>⑦ When they reached there, the ship had set off.<br>（当他们到达那里的时候，船已经开了。）<br>将句⑦表述到时间轴中，我们同样用“向左的方括号”表示该时态：</p>
+<p>  <img src="/2021/06/18/英语的16种时态/Past-perfect.png" alt="Past"></p>
+<p>由上图所示，该句相当于站在“they reached there”这个过去的时间点，对这个时间点之前发生的动作“the ship set off”做一个总结，于是便得到了“the ship had set off”的结论。</p>
+<ol start="9">
+<li>将来完成时（will have done）</li>
+</ol>
+<p>将来完成时表示站在某个将来的时间点，对这个时间点之前的一个或一系列动作的总结。</p>
+<p>⑧ By July, Michael will have got two college degrees.<br>（到七月份，Michael就已经拿到两个大学学位了。）<br>将句⑧表述到时间轴中，得到：</p>
+<p>  <img src="/2021/06/18/英语的16种时态/future-perfect.png" alt="Future"></p>
+<p>站在现在（now）这个时间点来看，或许Michael已经拿到了两个学位、或许她拿到了一个学位、也或许她还一个学位都没有拿到。其实都不重要，重要的是将来完成时所总结的内容：“到七月份，她就已经拿到两个大学学位了。”</p>
+<p>特别需要注意的是，完成时态都是站在某个时间点，对这个时间点之前发生的动作做一个总结。所以，如果句子的上下文中没有明确的表示出这个时间点，就不能使用完成式。例如：</p>
+<p>The ship had set off. （×）<br>Michael will have got two college degrees. （×）</p>
+<h1 id="完成进行式"><a href="#完成进行式" class="headerlink" title="完成进行式"></a>完成进行式</h1><p>完成进行式是完成式与进行式的结合，表示对一个正在进行的动作的总结。</p>
+<ol start="10">
+<li>现在完成进行时（have/has been doing）</li>
+</ol>
+<p>现在完成进行时表示对一个现在正在进行动作的总结。例如：</p>
+<p>⑨ Tom has been playing football for two hours.<br>（Tom已经踢了两个小时的足球了。）<br>将句⑨表述到时间轴中，用“灰色矩形”来表示进行时，而用“向左的方括号”来表示完成时，可以得到：</p>
+<p>  <img src="/2021/06/18/英语的16种时态/present-perfect-continuous.png" alt="Future"></p>
+<p>如上图所示，我们站在现在（now）这个时间点，对当时正在进行的动 作“playing football”展开总结，于是得到了“Tom has been playing football for two hours”的结论。</p>
+<ol start="11">
+<li>过去完成进行时（had been doing）</li>
+</ol>
+<p>过去完成进行时表示站在某个过去的时间点，对这个时间点正在进行动作的总结。</p>
+<p>⑩ I had been cleaning my room the whole morning when she came.<br>（当他来的时候，我已经打扫了一早上的房间了。)<br>将句⑩表述到时间轴中，得到：</p>
+<p>  <img src="/2021/06/18/英语的16种时态/present-perfect-continuous.png" alt="Future"></p>
+<p>如上图所示，我们站在“when she came”这个过去的时间点，并对这个时间点正在进行的动作“cleaning my room”做一个总结，于是就得到了“I had been cleaning my room the whole morning”的结论。</p>
+<ol start="12">
+<li>将来完成进行时（will have been doing）</li>
+</ol>
+<p>将来完成进行时表示站在某个将来的时间点，对这个时间点正在进行动作的总结。</p>
+<p>⑪ I will have been doing the drawing for five hour at 11 pm.<br>（到晚上11点，我就连续画图五个小时了。）<br>将句⑪表述到时间轴中，得到：</p>
+<p>  <img src="/2021/06/18/英语的16种时态/Future-perfect-continuous.png" alt="Future"></p>
+<p>如上图所示，我们站在一个将来时间点11 pm，对这个时间点正在进行的动作“doing the drawing”做一个总结，于是就得到了“I will have been doing the drawing for five hour”的结论。</p>
+<h1 id="过去将来时"><a href="#过去将来时" class="headerlink" title="过去将来时"></a>过去将来时</h1><p>至此为止，我们学习了共十二类时态的用法。</p>
+<p>实际上，动词还能够表示另一类时间（过去将来），这类时间对应的是下表所示的四类时态——即一般过去将来时、过去将来进行时、过去将来完成时、过去将来完成进行时。</p>
+<p>那为什么将这类时态提出来单独介绍呢？</p>
+<p>因为这类时态的用法与将来时的用法基本完全相同。唯一不同的地方是：将来时表示的是从现在（now）这个时间点看将来要发生的动作，而过去将来时表示从过去（past）的某个时间点看将来要发生的动作。如下图所示：</p>
+<p> <img src="/2021/06/18/英语的16种时态/过去将来时.png" alt="past"></p>
+<p>所以，对于过去的将来 = 某个过去时间点到现在的这段时间 + 对于现在的将来。</p>
+<ol start="13">
+<li>一般过去将来时（would do）</li>
+</ol>
+<p>一般过去将来时表示：站在某个过去的时间点看将会发生的动作。</p>
+<p>⑫ He told me that he would go abroad.<br>（他之前告诉我他会出国。）<br>将句⑫表述到时间轴中，得到：</p>
+<p>  <img src="/2021/06/18/英语的16种时态/一般过去将来时.png" alt="past"></p>
+<p>从时间轴上看，这个动作可能发生在“when he told me”至现在（now）这一段区域，也有可能发生在now之后的那一段区域。也就是说，对于now这个时间点来说，“go abroad”可能已经发生了，也可能将来才会发生。</p>
+<p>大家可以发现，过去将来时和将来时两者表现在时间轴中是极其相似的，所以剩下的三种时态就只给出例句，就不画图了。（也实在是画不动了……）</p>
+<ol start="14">
+<li>过去将来进行时（would be doing）</li>
+</ol>
+<p>过去将来进行时表示：站在某个过去的时间点，从这个时间点看一个之后的时间点（或时间段）正在发生的动作。</p>
+<p>He knew that I would be living in China next month.<br>（他就知道我接下来一个月就会在中国生活了。）</p>
+<ol start="15">
+<li>过去将来完成时（would have done）</li>
+</ol>
+<p>过去将来完成时表示：站在某个过去的时间点，对一个之后的时间点已经发生了的动作做总结。</p>
+<p>He said he would have left for London by the end of next month.<br>（他说第二个月末她肯定已经动身去伦敦了。）</p>
+<ol start="16">
+<li>过去将来完成进行时（would have been doing）</li>
+</ol>
+<p>过去将来完成时表示：站在过去的某个时间点，对一个之后的时间点正在发生的动作做总结。</p>
+<p>I knew by July he would have been working there for 30 years.<br>（我知道到七月他就在那里工作整整30年了。）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenfengying.github.io/2021/06/18/英语的16种时态/" data-id="cl55eygqv001lssvltbxi72k9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-python-n-t-n-t-difference" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/05/28/python-n-t-n-t-difference/" class="article-date">
+  <time datetime="2021-05-28T20:54:13.000Z" itemprop="datePublished">2021-05-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/28/python-n-t-n-t-difference/">python /n,/t,/n/t difference</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>  <strong>\t，\n，\n\t，what is the difference?</strong><br>\t ：empty space for 4 characters in front，same like one Tab keyboard key<br>\n ：change to next line ,like one Enter keyboard key<br>\n\t : change to next line and empty space for 4 characters in front</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenfengying.github.io/2021/05/28/python-n-t-n-t-difference/" data-id="cl55eygpy000vssvlfbyr5mp5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Forgot-the-SSH-Password-reset-it" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/05/28/Forgot-the-SSH-Password-reset-it/" class="article-date">
+  <time datetime="2021-05-28T19:52:13.000Z" itemprop="datePublished">2021-05-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Github/">Github</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/28/Forgot-the-SSH-Password-reset-it/">Hexo Deploy，Forgot the SSH Password,reset it</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>   today  i want to post some article to my blog , but i forgot my password .<br>  so i reset my github password , but it is still fail to deploy the post.<br>  With some soluation searching online ,  i had a password to deploy<br>  also , but i cannot remember anything . To fix this problem , i need to reset this<br>  password for SSH.</p>
+<p> <em>** Step1:Remove SSH which in your Github Setting</em><br>    Click the icon of login ， choose the Setting from the menu list ，then choose the SSH<br>and GPG keys , delete  all ssh keys</p>
+<p> <strong>* Step2:Creat the New SSH kEY</strong></p>
+<pre><code>  in your Git Bach ，input the commend: ssh-keygen -t rsa -C &quot;your email address for github&quot;
+
+ the system will display the context like ：
+
+ Generating public/private rsa key pair.
+ Enter file in which to save the key (/c/Users/dell/.ssh/id_rsa):
+
+ it ask you where to save  the key ,as normal, we dont change anythong , just save in default
+ file, so u just click Enter Key, then it will display another context like below:
+
+ Enter passphrase (empty for no passphrase):
+ Enter same passphrase again:
+
+ System ask you to set password to deploy this post to github.after u set the password
+then the system will come for another context like :
+
+Your identification has been saved in /c/Users/dell/.ssh/id_rsa.
+</code></pre><p>Your public key has been saved in /c/Users/dell/.ssh/id_rsa.pub.<br>The key fingerprint is:<br>65:69:······02:4b <a href="mailto:emailname@email.com" target="_blank" rel="noopener">emailname@email.com</a><br>The key’s randomart image is:<br>+–[ RSA 2048]—-+<br>|                 |<br>|       .   o .   |<br>|    . o o = o    |<br>|   . o * = o     |<br>|  E  o + o .     |<br>| . o.   . .      |<br>|     ..          |<br>+—————–+</p>
+<p>then it show that you are success to create ssh .</p>
+<p><em>**Step3: Add SSH to github </em></p>
+<p>   first you open the local file :id_rsa.pub（like ： c/Users/HP/.ssh/id_rsa.pub），you can edit with text<br>    then you copy all data .<br>    second you loged in the Github ,go to setting -&gt; ssh and GPG KeyS -&gt; add new ssh, create one<br>     ssh, you paste the data to key which you copied in begin </p>
+<p><strong>Step4: confirm the success of setting ssh</strong><br>   in your git bash , input the comand : ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a><br>   u are success to set ssh for hexo deloy ，if it display the context like :<br>   Hi username! You’ve successfully authenticated, but GitHub does not<br>   provide shell access.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenfengying.github.io/2021/05/28/Forgot-the-SSH-Password-reset-it/" data-id="cl55eygp10004ssvlmbfgceki" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-TestNG-入门" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/05/17/TestNG-入门/" class="article-date">
+  <time datetime="2021-05-16T22:33:14.000Z" itemprop="datePublished">2021-05-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/TestNG/">TestNG</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/17/TestNG-入门/">TestNG 入门</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一、TestNG介绍"><a href="#一、TestNG介绍" class="headerlink" title="一、TestNG介绍"></a>一、TestNG介绍</h1><p>TestNG是Java中的一个测试框架， 类似于JUnit 和NUnit, 功能都差不多， 只是功能更加强大，使用也更方便。<br>详细使用说明请参考官方链接：<a href="https://testng.org/doc/index.html" target="_blank" rel="noopener">https://testng.org/doc/index.html</a></p>
+<p>在Eclipse中离线安装Testng<br>打开Eclipse   Help -&gt;Install New Software ,   然后Add   “<a href="http://beust.com/eclipse&quot;" target="_blank" rel="noopener">http://beust.com/eclipse&quot;</a><br><img src="/2021/05/17/TestNG-入门/" alt="Install1"></p>
+<p>二、TestNG安装（基于eclipse+maven）<br>工程的pom.xml中需要添加如下内容：</p>
+<p>注解    描述<br>@BeforeSuite    在该套件的所有测试都运行在注释的方法之前，仅运行一次<br>@AfterSuite    在该套件的所有测试都运行在注释方法之后，仅运行一次<br>@BeforeClass    在调用当前类的第一个测试方法之前运行，注释方法仅运行一次<br>@AfterClass    在调用当前类的第一个测试方法之后运行，注释方法仅运行一次<br>@BeforeTest    注释的方法将在属于test标签内的类的所有测试方法运行之前运行<br>@AfterTest    注释的方法将在属于test标签内的类的所有测试方法运行之后运行<br>@BeforeGroups    配置方法将在之前运行组列表。 此方法保证在调用属于这些组中的任何一个的第一个测试方法之前不久运行<br>@AfterGroups    此配置方法将在之后运行组列表。该方法保证在调用属于任何这些组的最后一个测试方法之后不久运行<br>@BeforeMethod    注释方法将在每个测试方法之前运行<br>@AfterMethod    注释方法将在每个测试方法之后运行<br>@DataProvider    标记一种方法来提供测试方法的数据。 注释方法必须返回一个Object [] []，其中每个Object []可以被分配给测试方法的参数列表。 要从该DataProvider接收数据的@Test方法需要使用与此注释名称相等的dataProvider名称<br>@Factory    将一个方法标记为工厂，返回TestNG将被用作测试类的对象。 该方法必须返回Object []<br>@Listeners    定义测试类上的侦听器<br>@Parameters    描述如何将参数传递给@Test方法<br>@Test    将类或方法标记为测试的一部分，此标记若放在类上，则该类所有公共方法都将被作为测试方法</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenfengying.github.io/2021/05/17/TestNG-入门/" data-id="cl55eygpl000gssvl105lv8kl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Deutsch/">Deutsch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/English-Grammer/">English Grammer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Github/">Github</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet-Basic/">Internet Basic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jmeter/">Jmeter</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQL/">SQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Selenium/">Selenium</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test-Basic/">Test Basic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test-Basic-Security/">Test Basic-Security</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/TestNG/">TestNG</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automation/">Automation</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Automation/" style="font-size: 10px;">Automation</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/03/eclipse-connect-the-mysql-database/">eclipse connect the mysql database</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/11/pycharm-调试技巧/">pycharm 调试技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/11/python3-typing/">python3- typing</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/10/深入解析常见三次握手异常/">深入解析常见三次握手异常</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/09/登录接口的安全思考/">登录接口的安全思考</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Summer<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

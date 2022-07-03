@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>python+selenium中的Implicit Waits/Explicit Waits/sleep | 笨笨三脚猫</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="selenium定位元素时，有些元素需要等待一段时间始出来，从而才能定位到，继而才能进行下一步的操作，详细了解一下selenium中几种等待的方式 sleepsleep是time模块下的一个方法，默认单位是seconds from time import sleepfrom selenium import webdriver driver = webdriver.Chrome()driver.ge">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python+selenium中的Implicit Waits&#x2F;Explicit Waits&#x2F;sleep">
+<meta property="og:url" content="https://chenfengying.github.io/2021/06/22/python-selenium中的Implicit-Waits-Explicit-Waits-sleep/index.html">
+<meta property="og:site_name" content="笨笨三脚猫">
+<meta property="og:description" content="selenium定位元素时，有些元素需要等待一段时间始出来，从而才能定位到，继而才能进行下一步的操作，详细了解一下selenium中几种等待的方式 sleepsleep是time模块下的一个方法，默认单位是seconds from time import sleepfrom selenium import webdriver driver = webdriver.Chrome()driver.ge">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-06-22T13:41:40.934Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python+selenium中的Implicit Waits&#x2F;Explicit Waits&#x2F;sleep">
+<meta name="twitter:description" content="selenium定位元素时，有些元素需要等待一段时间始出来，从而才能定位到，继而才能进行下一步的操作，详细了解一下selenium中几种等待的方式 sleepsleep是time模块下的一个方法，默认单位是seconds from time import sleepfrom selenium import webdriver driver = webdriver.Chrome()driver.ge">
+  
+    <link rel="alternate" href="/atom.xml" title="笨笨三脚猫" type="application/atom+xml">
+  
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">笨笨三脚猫</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://chenfengying.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-python-selenium中的Implicit-Waits-Explicit-Waits-sleep" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/06/22/python-selenium中的Implicit-Waits-Explicit-Waits-sleep/" class="article-date">
+  <time datetime="2021-06-22T13:35:34.000Z" itemprop="datePublished">2021-06-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Selenium/">Selenium</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      python+selenium中的Implicit Waits/Explicit Waits/sleep
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>selenium定位元素时，有些元素需要等待一段时间始出来，从而才能定位到，继而才能进行下一步的操作，详细了解一下selenium中几种等待的方式</p>
+<h1 id="sleep"><a href="#sleep" class="headerlink" title="sleep"></a>sleep</h1><p>sleep是time模块下的一个方法，默认单位是seconds</p>
+<p>from time import sleep<br>from selenium import webdriver</p>
+<p>driver = webdriver.Chrome()<br>driver.get(“<a href="http://www.baidu.com&quot;" target="_blank" rel="noopener">http://www.baidu.com&quot;</a>)<br>sleep(5)</p>
+<p>Explain:</p>
+<p>在打开网址<a href="http://www.baidu.com后，会等待5秒钟后再进行下面的步骤。" target="_blank" rel="noopener">www.baidu.com后，会等待5秒钟后再进行下面的步骤。</a><br>缺点<br>很明显，每一个元素可能需要加载的地方都需要设置sleep等待时间，非常繁琐</p>
+<h1 id="Implicit-Wait"><a href="#Implicit-Wait" class="headerlink" title="Implicit Wait"></a>Implicit Wait</h1><p>selenium webdriver提供的方法之一，隐式等待</p>
+<p>from time import sleep<br>from selenium import webdriver<br>driver = webdriver.Chrome()<br>driver.implicitly_wait(10) # 设置隐式等待时间为10s<br>driver.get(“<a href="http://www.baidu.com&quot;" target="_blank" rel="noopener">http://www.baidu.com&quot;</a>)<br>driver.find_element_by_css_selector(“#kw”).send_keys(“Python”)</p>
+<p>Explain:</p>
+<p>单位同样是seconds，不同的是隐式等待最多等待10s，如果10s内元素仍加载不了（判断元素是否存在于DOM中，判断频率默认是250 milliseconds），就会抛异常；如果元素“#kw”很快就加载出来了，就不用等待10s，会直接操作元素。</p>
+<p>优点<br>Once set, the implicit wait is set for the life of the WebDriver object. 隐式等待在driver的整个生命周期内都有效。也就是说，driver在没有被close()之前，定位每个元素时，都会有隐式等待的10s，也就是说，只需要设置一次，所有的元素都可有最多10s的等待加载的时间。相比sleep要设置很多次，很方便了。</p>
+<p>缺点<br>implicit wait是检查元素是否存在于DOM，如果元素已经存在于DOM，就会结束等待，进行下一步操作；而有些元素可能已经存在于DOM，但是还需等待一段时间才能到可点的状态（clickable），因此使用implicit wait仍会因为等待时间不足而报错（比如，下拉框中元素的选择）</p>
+<h1 id="Explicit-Wait"><a href="#Explicit-Wait" class="headerlink" title="Explicit Wait"></a>Explicit Wait</h1><p>selenium webdriver提供的方法之一，显示等待</p>
+<p>from selenium.webdriver.common.by import By<br>from selenium.webdriver.support.ui import WebDriverWait<br>from selenium.webdriver.support import expected_conditions as EC<br>driver = webdriver.Chrome()<br>driver.get(“<a href="http://www.baidu.com&quot;" target="_blank" rel="noopener">http://www.baidu.com&quot;</a>)<br>wait = WebDriverWait(driver, 10) # 设置显示等待时间为10s<br>element = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ‘#kw’)))# 判断条件<br>element.send_keys(“Python”)</p>
+<p>Explain:</p>
+<p>显示等待是条件判断，判断元素#kw可点了，再去操作元素；如果#kw不可点，默认每50<br>milliseconds去判断下条件，如果10s内还不可点，就抛出异常。（更多的条件判断见官方文档：<a href="http://selenium-python.readthedocs.io/waits.html）" target="_blank" rel="noopener">http://selenium-python.readthedocs.io/waits.html）</a></p>
+<p>优点<br>弥补了implicit wait的不足，可以通过判断一些条件，再去决定是否等待下去</p>
+<p>缺点<br>当然是写起来麻烦啦，如果要用到，可以考虑封装起来用</p>
+<h1 id="Fluent-Waits"><a href="#Fluent-Waits" class="headerlink" title="Fluent Waits"></a>Fluent Waits</h1><p>FluentWait是Java selenium中的另一种wait的方式，与Explicit Wait类似，可以定义等待结束的条件、等待的最大时长以及判断元素是否满足条件的频率</p>
+<p>综上：Selenium+Python建议implicit wait与explicit wait结合使用；在有必要的时候要用explicit wait<br>此外，time.sleep()在截图等待时，可以把以上所有方法比的下去</p>
+<p>References<br><a href="https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/support/ui/FluentWait.html" target="_blank" rel="noopener">https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/support/ui/FluentWait.html</a><br><a href="http://toolsqa.com/selenium-webdriver/implicit-explicit-n-fluent-wait/" target="_blank" rel="noopener">http://toolsqa.com/selenium-webdriver/implicit-explicit-n-fluent-wait/</a><br><a href="http://selenium-python.readthedocs.io/waits.html#implicit-waits" target="_blank" rel="noopener">http://selenium-python.readthedocs.io/waits.html#implicit-waits</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenfengying.github.io/2021/06/22/python-selenium中的Implicit-Waits-Explicit-Waits-sleep/" data-id="cl55eygq2000xssvlv6hfrlmv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/06/22/selenium-question-and-answer/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          selenium question and answer
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/06/22/Install-Selenium-and-webdriver/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Install Selenium and webdriver</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Deutsch/">Deutsch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/English-Grammer/">English Grammer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Github/">Github</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet-Basic/">Internet Basic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jmeter/">Jmeter</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQL/">SQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Selenium/">Selenium</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test-Basic/">Test Basic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test-Basic-Security/">Test Basic-Security</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/TestNG/">TestNG</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automation/">Automation</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Automation/" style="font-size: 10px;">Automation</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/03/eclipse-connect-the-mysql-database/">eclipse connect the mysql database</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/11/pycharm-调试技巧/">pycharm 调试技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/11/python3-typing/">python3- typing</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/10/深入解析常见三次握手异常/">深入解析常见三次握手异常</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/09/登录接口的安全思考/">登录接口的安全思考</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Summer<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

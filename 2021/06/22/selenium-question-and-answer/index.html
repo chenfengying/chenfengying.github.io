@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>selenium question and answer | 笨笨三脚猫</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1.Difference between get and navigate method in Selenium?  get()-click  navigate()-back,forward or refresh  Difference  between quit and close methods in webdriver?close– current focus in browerquit –">
+<meta property="og:type" content="article">
+<meta property="og:title" content="selenium question and answer">
+<meta property="og:url" content="https://chenfengying.github.io/2021/06/22/selenium-question-and-answer/index.html">
+<meta property="og:site_name" content="笨笨三脚猫">
+<meta property="og:description" content="1.Difference between get and navigate method in Selenium?  get()-click  navigate()-back,forward or refresh  Difference  between quit and close methods in webdriver?close– current focus in browerquit –">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-06-22T14:46:07.924Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="selenium question and answer">
+<meta name="twitter:description" content="1.Difference between get and navigate method in Selenium?  get()-click  navigate()-back,forward or refresh  Difference  between quit and close methods in webdriver?close– current focus in browerquit –">
+  
+    <link rel="alternate" href="/atom.xml" title="笨笨三脚猫" type="application/atom+xml">
+  
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">笨笨三脚猫</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://chenfengying.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-selenium-question-and-answer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/06/22/selenium-question-and-answer/" class="article-date">
+  <time datetime="2021-06-22T13:47:36.000Z" itemprop="datePublished">2021-06-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Selenium/">Selenium</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      selenium question and answer
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1.Difference between get and navigate method in Selenium?<br>  get()-click<br>  navigate()-back,forward or refresh</p>
+<ol start="2">
+<li><p>Difference  between quit and close methods in webdriver?<br>close– current focus in brower<br>quit –all opened browers</p>
+</li>
+<li><p>Difference between implicit and explicit wait?</p>
+</li>
+<li><p>How many ways we can handle frames in the application using webdriver?<br>frames-driver.switchto().frame(id)-id,name ,frame w webelement</p>
+</li>
+<li><p>code to handle 3 child window?<br> driver = webdriver.Chrome()<br> all_handles = driver.window_handles ##all windower</p>
+<p> #java:<br>  Set<string>s=Driver.getWindowHandles();<br>  it=s.iterator();<br>  it.next()// 0 index of set box<br>  it.next() //1 index of set box<br>  String windowid3rd=it.next;//2 index of set box<br>  Driver.switchto().window(windowid3rd)</string></p>
+</li>
+<li><p>how to handle https certifications?<br>DesiredCapabilities cap=DesiredCapabilities.chrome();<br>//Set ACCEPT_SSL_CERTS variable to true<br>cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS,true);</p>
+<ol start="7">
+<li>Difference type of locators present in webdriver?<br>xpath，css,id,name,classname,linktext<br>8 .write syntax for xpath and Css if id and tag are give<br>Xpath syntax=//tagname[@id=’value’]<br>Css=tagname[id=value]<br>9.How to use Contains regular expression to xpath<br>eg: is=uo12,uo34<br>//tagname[contains(@id,’uo’)]<br>10, how to use regular expression to CSS?<br>Tagname[id*=’uo’]<br>11.what is the class available in selenium to handle drop down?<br>select<br>12, what is the method to check if checkbox is select?<br>Driver.findElement(‘locator’).isSelected()//true</li>
+<li>how to validate if element is visible or hidden in webpage?<br>Driver.findElement(‘locator’).isDisplayed//true<br>14 how to enter the text in caps lock?<br>dirver.findElement(By.xpath(“fdfd”)).sendKeys(keys.SHIFF,’hello’)</li>
+<li><p>how to mouse over on the web element on page?<br>Actions  a=new Actions(driver);<br>a.moveToElement(locator).build().perform();</p>
+<ol start="16">
+<li>methods to handle java alert<br>driver.switchTo.alert()<br>17 how to get lins count in the pages?<br>dirver.findElement(By.tagName(‘a’)).size();<br>18 how to validate if we are navigate to child window successfully?<br>diver.getTitle()<br>19 difference between relative and absolute xpath<br>absolute –html/body – to actual element<br>relative</li>
+</ol>
+<p>20  difference between find element and find elements</p>
+<p>21 hwo to take screenshots with selenium webdriver<br>get_screenshot_as_file()<br>22 , how to hit enter key from webdriver commands<br>driver.findElement(By(locator)).sendKeys(Keys.ENTER)<br>Use these codes from the API docs: <a href="http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.common.keys" target="_blank" rel="noopener">http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.common.keys</a></p>
+</li>
+</ol>
+</li>
+</ol>
+<p>Eg. ENTER would be .send_keys(u’\ue007’)</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenfengying.github.io/2021/06/22/selenium-question-and-answer/" data-id="cl55eygq70011ssvl5rvgl4p7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/06/25/how-to-locate-the-page-element-if-the-page-is-keeping-change/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          how to locate the page element if the page is keeping change
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/06/22/python-selenium中的Implicit-Waits-Explicit-Waits-sleep/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">python+selenium中的Implicit Waits/Explicit Waits/sleep</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Deutsch/">Deutsch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/English-Grammer/">English Grammer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Github/">Github</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet-Basic/">Internet Basic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jmeter/">Jmeter</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQL/">SQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Selenium/">Selenium</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test-Basic/">Test Basic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test-Basic-Security/">Test Basic-Security</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/TestNG/">TestNG</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automation/">Automation</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Automation/" style="font-size: 10px;">Automation</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/03/eclipse-connect-the-mysql-database/">eclipse connect the mysql database</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/11/pycharm-调试技巧/">pycharm 调试技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/11/python3-typing/">python3- typing</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/10/深入解析常见三次握手异常/">深入解析常见三次握手异常</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/09/登录接口的安全思考/">登录接口的安全思考</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Summer<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

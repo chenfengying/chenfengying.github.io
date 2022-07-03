@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo Deploy，Forgot the SSH Password,reset it | 笨笨三脚猫</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="today  i want to post some article to my blog , but i forgot my password .  so i reset my github password , but it is still fail to deploy the post.  With some soluation searching online ,  i had a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo Deploy，Forgot the SSH Password,reset it">
+<meta property="og:url" content="https://chenfengying.github.io/2021/05/28/Forgot-the-SSH-Password-reset-it/index.html">
+<meta property="og:site_name" content="笨笨三脚猫">
+<meta property="og:description" content="today  i want to post some article to my blog , but i forgot my password .  so i reset my github password , but it is still fail to deploy the post.  With some soluation searching online ,  i had a">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-06-21T07:20:21.277Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo Deploy，Forgot the SSH Password,reset it">
+<meta name="twitter:description" content="today  i want to post some article to my blog , but i forgot my password .  so i reset my github password , but it is still fail to deploy the post.  With some soluation searching online ,  i had a">
+  
+    <link rel="alternate" href="/atom.xml" title="笨笨三脚猫" type="application/atom+xml">
+  
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">笨笨三脚猫</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://chenfengying.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Forgot-the-SSH-Password-reset-it" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/05/28/Forgot-the-SSH-Password-reset-it/" class="article-date">
+  <time datetime="2021-05-28T19:52:13.000Z" itemprop="datePublished">2021-05-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Github/">Github</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hexo Deploy，Forgot the SSH Password,reset it
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>   today  i want to post some article to my blog , but i forgot my password .<br>  so i reset my github password , but it is still fail to deploy the post.<br>  With some soluation searching online ,  i had a password to deploy<br>  also , but i cannot remember anything . To fix this problem , i need to reset this<br>  password for SSH.</p>
+<p> <em>** Step1:Remove SSH which in your Github Setting</em><br>    Click the icon of login ， choose the Setting from the menu list ，then choose the SSH<br>and GPG keys , delete  all ssh keys</p>
+<p> <strong>* Step2:Creat the New SSH kEY</strong></p>
+<pre><code>  in your Git Bach ，input the commend: ssh-keygen -t rsa -C &quot;your email address for github&quot;
+
+ the system will display the context like ：
+
+ Generating public/private rsa key pair.
+ Enter file in which to save the key (/c/Users/dell/.ssh/id_rsa):
+
+ it ask you where to save  the key ,as normal, we dont change anythong , just save in default
+ file, so u just click Enter Key, then it will display another context like below:
+
+ Enter passphrase (empty for no passphrase):
+ Enter same passphrase again:
+
+ System ask you to set password to deploy this post to github.after u set the password
+then the system will come for another context like :
+
+Your identification has been saved in /c/Users/dell/.ssh/id_rsa.
+</code></pre><p>Your public key has been saved in /c/Users/dell/.ssh/id_rsa.pub.<br>The key fingerprint is:<br>65:69:······02:4b <a href="mailto:emailname@email.com" target="_blank" rel="noopener">emailname@email.com</a><br>The key’s randomart image is:<br>+–[ RSA 2048]—-+<br>|                 |<br>|       .   o .   |<br>|    . o o = o    |<br>|   . o * = o     |<br>|  E  o + o .     |<br>| . o.   . .      |<br>|     ..          |<br>+—————–+</p>
+<p>then it show that you are success to create ssh .</p>
+<p><em>**Step3: Add SSH to github </em></p>
+<p>   first you open the local file :id_rsa.pub（like ： c/Users/HP/.ssh/id_rsa.pub），you can edit with text<br>    then you copy all data .<br>    second you loged in the Github ,go to setting -&gt; ssh and GPG KeyS -&gt; add new ssh, create one<br>     ssh, you paste the data to key which you copied in begin </p>
+<p><strong>Step4: confirm the success of setting ssh</strong><br>   in your git bash , input the comand : ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a><br>   u are success to set ssh for hexo deloy ，if it display the context like :<br>   Hi username! You’ve successfully authenticated, but GitHub does not<br>   provide shell access.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenfengying.github.io/2021/05/28/Forgot-the-SSH-Password-reset-it/" data-id="cl55eygp10004ssvlmbfgceki" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/05/28/python-n-t-n-t-difference/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          python /n,/t,/n/t difference
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/05/17/TestNG-入门/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">TestNG 入门</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Deutsch/">Deutsch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/English-Grammer/">English Grammer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Github/">Github</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet-Basic/">Internet Basic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jmeter/">Jmeter</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQL/">SQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Selenium/">Selenium</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test-Basic/">Test Basic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test-Basic-Security/">Test Basic-Security</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/TestNG/">TestNG</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automation/">Automation</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Automation/" style="font-size: 10px;">Automation</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/03/eclipse-connect-the-mysql-database/">eclipse connect the mysql database</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/11/pycharm-调试技巧/">pycharm 调试技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/11/python3-typing/">python3- typing</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/10/深入解析常见三次握手异常/">深入解析常见三次握手异常</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/09/登录接口的安全思考/">登录接口的安全思考</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Summer<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

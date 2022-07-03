@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>正确甄别API,REST API,RESTFUL API 和 Web Service | 笨笨三脚猫</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="看到API你会想起什么？是接口、第三方调用、还是API文档？初看你可能会觉得这太熟悉了，这不是系统开发日常系列吗？但你仔细想一想，你会发现API的概念在你脑海里是如此的模糊。如何你通过搜索引擎检索API，你会看到类似这样的信息：API——Application Programming Interface(应用程序编程接口)，这太抽象了。接下来，我将结合在开发中总结的一些经验，以通俗的方式聊聊API">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正确甄别API,REST API,RESTFUL API 和 Web Service">
+<meta property="og:url" content="https://chenfengying.github.io/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/index.html">
+<meta property="og:site_name" content="笨笨三脚猫">
+<meta property="og:description" content="看到API你会想起什么？是接口、第三方调用、还是API文档？初看你可能会觉得这太熟悉了，这不是系统开发日常系列吗？但你仔细想一想，你会发现API的概念在你脑海里是如此的模糊。如何你通过搜索引擎检索API，你会看到类似这样的信息：API——Application Programming Interface(应用程序编程接口)，这太抽象了。接下来，我将结合在开发中总结的一些经验，以通俗的方式聊聊API">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://chenfengying.github.io/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/API&webservice.jpeg">
+<meta property="og:image" content="https://chenfengying.github.io/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/API.jpeg">
+<meta property="og:image" content="https://chenfengying.github.io/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/resource.jpeg">
+<meta property="og:image" content="https://chenfengying.github.io/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/resource-mvc.jpeg">
+<meta property="og:image" content="https://chenfengying.github.io/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/soap&REST.jpeg">
+<meta property="og:image" content="https://chenfengying.github.io/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/x.jpeg">
+<meta property="og:updated_time" content="2021-07-26T15:41:05.050Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正确甄别API,REST API,RESTFUL API 和 Web Service">
+<meta name="twitter:description" content="看到API你会想起什么？是接口、第三方调用、还是API文档？初看你可能会觉得这太熟悉了，这不是系统开发日常系列吗？但你仔细想一想，你会发现API的概念在你脑海里是如此的模糊。如何你通过搜索引擎检索API，你会看到类似这样的信息：API——Application Programming Interface(应用程序编程接口)，这太抽象了。接下来，我将结合在开发中总结的一些经验，以通俗的方式聊聊API">
+<meta name="twitter:image" content="https://chenfengying.github.io/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/API&webservice.jpeg">
+  
+    <link rel="alternate" href="/atom.xml" title="笨笨三脚猫" type="application/atom+xml">
+  
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">笨笨三脚猫</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://chenfengying.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-正确甄别API-REST-API-RESTFUL-API-和-Web-Service" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/" class="article-date">
+  <time datetime="2021-07-26T15:24:32.000Z" itemprop="datePublished">2021-07-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Internet-Basic/">Internet Basic</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      正确甄别API,REST API,RESTFUL API 和 Web Service
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>看到API你会想起什么？是接口、第三方调用、还是API文档？初看你可能会觉得这太熟悉了，这不是系统开发日常系列吗？但你仔细想一想，你会发现API的概念在你脑海里是如此的模糊。如何你通过搜索引擎检索API，你会看到类似这样的信息：API——Application Programming Interface(应用程序编程接口)，这太抽象了。接下来，我将结合在开发中总结的一些经验，以通俗的方式聊聊API、REST API、RESTful API以及Web Service这四者之间的联系与区别。<br>  <img src="/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/API&amp;webservice.jpeg" alt="api"></p>
+<p>1、API 与 REST API</p>
+<p>什么是API?这里引述维基百科给出的定义：应用程序接口（英语：Application Programming Interface，缩写：API；又称为应用编程接口）是软件系统不同组成部分衔接的约定。这个对API的定义太过于广泛和抽象，而通俗的讲，API是一段应用程序与另一段应用程序相互“交流”的方式（协议）。在Web应用程开发中，API是我们通过网络进行数据检索的一种主要方式，API文档将告知你检索数据的URL列表、查询参数、请求方式以及响应状态，其目的是降低Web应用程序开发难度，共享两个应用程序之间的数据（文本、音频、视频、图片等），而屏蔽其内部复杂的实现细节。</p>
+<p>REST是Representational State Transfer的缩写，直译过来就是：表述状态的转移。REST API是一组关于如何构建Web应用程序API的架构规则、标准或指导，或者说REST API是遵循API原则的一种架构风格。REST是专门针对Web应用程序而设计的，其目的在于降低开发的复杂度，提高系统的可伸缩性。下面是设计REST风格的系统架构时需要满足或者遵循的一些基本条件和原则：</p>
+<p>1、在REST架构中，Web中所有的事物（文本、音频、视频、图片、链接）都可以被统一的抽象为资源（resource）<br>2、在REST架构中，每一个资源都有与之对应的唯一资源标识符（resource identifier）,当资源的状态发生改变时,资源标识符不会发生改变<br>3、在REST架构中，所有的操作都是无状态的。REST架构遵循CRUD原则，所有的资源都可以通过GET、POST、PUT和DELETE这四种行为完成对应的操作。<br>4、可缓存（可选项），在REST架构中需要缓存来有效的处理大批量的请求<br>5、接口一致<br>现在，了解了API和REST API的基本概念，那这两者之间有什么异同？如果按照数学上集合的概念来解释API与REST API之间的联系与区别，API是REST API的超集，REST API 是API的子集；所有的REST API都是API，但不是所有的API都是REST API。更通俗的解释是：所有的男人都是人，但不是所有的人都是男人。</p>
+<p>2、REST API 与RESTful API</p>
+<p>在第一小节中，了解了什么是REST API，接下来聊聊REST API与RESTful API之间的异同。很多初学者很容易将这两者等同起来，认为RESTful API就是REST API，这可能是单纯的从字面上去理解了，当你深入的去了解两者的本质后，你会发现其实不然。REST API是Web API设计的一种规范或者指导原则，而RESTful API则是这中架构设计原则或者规范的一种具体实现方式。也就是说，RESTful API是REST API的非正式实现方式，因为实现REST API的方式有很多，RESTful API只是其中一种，且没有完全满足REST API的所有设计原则，每个开发者在实现REST 架构时的则重点都会有差别。</p>
+<p>很多初学者容易将REST API与RESTful API两者的概念搞混淆，我想可能只是看字面意思，而没有关注它们本身的含义（就像认识中文字一样，有边读边，无边读中间，断章取义了）。这就好比很多人会把变性人等同于女人，变性人可能五官的表象看起来和女人一样，但变性人不能生育，它只是满足了定义一个女性的大多数条件（实现），但本质上不是女人。</p>
+<p>接下来，通过一个简单的例子以加深对REST API和RESTful API的理解。下面将给出一个执行CURD操作的RESTful API设计案例：</p>
+<p>  <img src="/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/API.jpeg" alt="http"></p>
+<p>说明：resource代指某种资源的名称，可以时student(学生)、teacher(老师)、book(书籍)等等，通常使用名词来表示；{id}则代指某种资源的唯一标识符（resource identifier）</p>
+<p>下面是一个具体的小例子，以学生管理为例，设计学生管理的API。学生资源包括ID，姓名和所学课程信息，学生资源信息如下：</p>
+<p>  <img src="/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/resource.jpeg" alt="http2"></p>
+<p>现在，我们需要将学生数据保存到数据库，然后执行查询、修改和删除学生数据的操作。学生管理API的使用者调用的API如下：</p>
+<p>1、创建学生资源：[POST] <a href="http://www.example.com/student" target="_blank" rel="noopener">http://www.example.com/student</a><br>2、获取所有学生资源：[GET] <a href="http://www.example.com/students" target="_blank" rel="noopener">http://www.example.com/students</a><br>3、获取ID=1001的学生资源：[GET] <a href="http://www.example.com/student/1001" target="_blank" rel="noopener">http://www.example.com/student/1001</a><br>4、修改ID=1001的学生资源：[PUT] <a href="http://www.example.com/student/1001" target="_blank" rel="noopener">http://www.example.com/student/1001</a><br>5、删除ID=1001的学生资源：[DELETE] <a href="http://www.example.com/student/1001" target="_blank" rel="noopener">http://www.example.com/student/1001</a><br>前面的内容说到，API共享数据资源，而屏蔽内部实现，API的使用者（客户端）关注的是资源（读懂数据）,并不需要了解API内部构造;API的提供者（服务端）只关注自己的内部实现，而不关系API使用者（客户端）的状态。为了加深对这一概念的理解，下面给出学生管理API的内部实现示例：</p>
+<p>  <img src="/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/resource-mvc.jpeg" alt="http3"></p>
+<p>说明：<br>示例代码是基于Spring MVC进行实现的。</p>
+<p>除了上述的内容之外，你还可以通过提供键值对的方式对查询数据进行过滤，如获取所有的学生数据时，只想获取性别为女性的学生数据，则可以通过这样的方式来完成：</p>
+<p>[GET] <a href="http://www.example.com/students?gender=female" target="_blank" rel="noopener">http://www.example.com/students?gender=female</a><br>Tip：如果API拥有对数据过滤的功能，对应服务端的API实现代码也需要做调整。</p>
+<p>在前面的内容中，我们提到RESTful API是REST API的非正式实现方式或规范。为什么这么说呢？因为在RESTful API的设计中，我们完全可以通过GET的方式完成CURD操作，也可以通过DELETE行为来创建资源，通过POST行为来修改资源，它的实现方式并不严谨或者说并没有严格按照REST API提出的约束条件来进行。所以说RESTful API是REST API的非正式实现方式。</p>
+<p>3、REST与Web Service</p>
+<p>3-1、什么是Web Service?</p>
+<p>如万维网联盟（W3C）所述，Web Service提供了在各种平台和/或框架上运行的不同软件应用程序之间可以进行互操作的标准方法。Web Service的特点是具有良好的互操作性和可扩展性，以及由于使用XML而可以对程序处理过程进行描述。它们可以以松散耦合的方式组合不同的服务以实现复杂的操作。提供简单服务的程序可以通过相互交互，以提供复杂的增值服务。</p>
+<p>两个Web Service之间主要通过HTTP网络协议进行通信，如我们熟知的SOA(面向服务的体系架构)，主要依赖于XML-RPC和SOAP(Simple Object Access Protocol，即简单对象访问协议)。</p>
+<p>Tip：千万不要将SOA（面向服务体系架构）和SOAP(简单对象访问协议)搞混，前者是一种架构设计形式，后者是一种数据交换协议。</p>
+<p>简单的一个示例：假设一个Web Service A提供允许其他应用程序通过URL获取用户信息的功能：[GET] <a href="http://www.abc.com/{id}。id是用户的唯一标识符，请求此URL将获得用户信息。现在假设浏览器、手机、桌面应用程序的用户都要获取服务A提供的用户信息，这三者只需要请求服务A提供的URL地址，并输入用户id信息即可。至于者三个不同客户端的实现方式（编程语言）是什么与服务A" target="_blank" rel="noopener">http://www.abc.com/{id}。id是用户的唯一标识符，请求此URL将获得用户信息。现在假设浏览器、手机、桌面应用程序的用户都要获取服务A提供的用户信息，这三者只需要请求服务A提供的URL地址，并输入用户id信息即可。至于者三个不同客户端的实现方式（编程语言）是什么与服务A</a> 没有任何关系，只要能够解析出服务A返回的XML文档即可。这样，应用程序之间交换数据就可以不用依赖于具体的语言和环境。这就好比不同国家不同语言的人，只要能够知晓对方语言的语法结构，两个人就可以进行交流。</p>
+<p>3-2、Web Service的优点</p>
+<p>使用Web Service有如下的几个优点：</p>
+<p>1、互操作性：Web Service允许应用程序之间进行通信，交换数据和共享服务。<br>2、可用性：Web Service的功能可以从简单的信息查找到复杂的算法计算。<br>3、可重用性：Web Service之间可以相互组合，以提供更为复杂的服务，由于其互操作性的特点，可以轻松的在其他的服务中重用Web Service组件,提高了服务的重用率。<br>4、易于部署：Web Service可以部署在基于Internet标准的容器中，如Apache、Axis2等，以提供HTTP或者WSDL（网络服务定义语言）驱动的服务。<br>5、成本低：Web Service是通过打包成Web服务组件进行部署，从而降低了使用的成本。<br>3-3、Web Service的类型</p>
+<p>目前，Web Service主要有两大流派：</p>
+<p>1、基于SOAP的Web Service : SOAP(简单对象访问协议)是一种基于XML的协议，用以访问Web Service。其接口以机器可处理的格式进行描述，称为WSDL(Web服务定义语言)文档。通过使用标准的的XML文档来描述Web Service，在XML文件中，会详细记录接口的信息，如消息的格式、传输协议以及交互的位置等信息。<br>2、基于REST的Web Service ：REST(Representational State Transfer)是一种软件架构，它使用JSON来描述数据格式，最重要的是HTTP传输协议对REST来说是非必须的。<br>3-4、REST与SOAP的区别和联系</p>
+<p>下面，通过一张表格来对比REST与SOAP之间的异同：</p>
+<p>  <img src="/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/soap&amp;REST.jpeg" alt="http4"></p>
+<p>总结</p>
+<p>如上所述，我们了解了什么是API，什么是REST API,什么是RESTful API以及Web Service的相关概念。API代表应用程序编程接口，是一种较为宽泛的定义或者说是一种协议，作为软件程序之间相互通信的接口而存在。REST API是API的一个子集，所有的REST API都是API；RESTful API是对REST API架构风格的一种非正式实现方式。API与Web Service都是服务提供者和服务消费者之间的通信手段。最后，为了能够快速的识别API与Web Service之间的差异，将这两种手段的不同之处整理成对照表如下：</p>
+<p>  <img src="/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/x.jpeg" alt="http5"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chenfengying.github.io/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/" data-id="cl55eygqf0019ssvlxljx77km" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/07/27/什么是Nginx以及使用场景/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          什么是Nginx以及使用场景
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/07/07/SQL-the-difference-betwen-in-and-exists/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">SQL , the difference betwen in and exists</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Deutsch/">Deutsch</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/English-Grammer/">English Grammer</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Flask/">Flask</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Github/">Github</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet-Basic/">Internet Basic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Jmeter/">Jmeter</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SQL/">SQL</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Selenium/">Selenium</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test-Basic/">Test Basic</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Test-Basic-Security/">Test Basic-Security</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/TestNG/">TestNG</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automation/">Automation</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Automation/" style="font-size: 10px;">Automation</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">July 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/08/">August 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/07/03/eclipse-connect-the-mysql-database/">eclipse connect the mysql database</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/11/pycharm-调试技巧/">pycharm 调试技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/11/python3-typing/">python3- typing</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/10/深入解析常见三次握手异常/">深入解析常见三次握手异常</a>
+          </li>
+        
+          <li>
+            <a href="/2021/08/09/登录接口的安全思考/">登录接口的安全思考</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2022 Summer<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
