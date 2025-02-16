@@ -7,17 +7,17 @@
   
   <title>Java Collection | 笨笨三脚猫</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#Type of Java Collection   List(Ordered, allow duplicates) Implementation: ArrayList ,LinkedList,Vector Element are stored in an ordered sequence(index-based) allow duplicate values Example : ArrayLis">
+  <meta name="description" content="Type of Java CollectionTypes of Collections in JavaThe Java Collections Framework is divided into four main interfaces: List (Ordered Collection with Duplicates)Set (Unique Elements, No Duplicates)Que">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java Collection">
 <meta property="og:url" content="https://chenfengying.github.io/2025/02/16/Java-Collection/index.html">
 <meta property="og:site_name" content="笨笨三脚猫">
-<meta property="og:description" content="#Type of Java Collection   List(Ordered, allow duplicates) Implementation: ArrayList ,LinkedList,Vector Element are stored in an ordered sequence(index-based) allow duplicate values Example : ArrayLis">
+<meta property="og:description" content="Type of Java CollectionTypes of Collections in JavaThe Java Collections Framework is divided into four main interfaces: List (Ordered Collection with Duplicates)Set (Unique Elements, No Duplicates)Que">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2025-02-16T19:29:53.823Z">
+<meta property="og:updated_time" content="2025-02-16T20:19:52.478Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java Collection">
-<meta name="twitter:description" content="#Type of Java Collection   List(Ordered, allow duplicates) Implementation: ArrayList ,LinkedList,Vector Element are stored in an ordered sequence(index-based) allow duplicate values Example : ArrayLis">
+<meta name="twitter:description" content="Type of Java CollectionTypes of Collections in JavaThe Java Collections Framework is divided into four main interfaces: List (Ordered Collection with Duplicates)Set (Unique Elements, No Duplicates)Que">
   
     <link rel="alternate" href="/atom.xml" title="笨笨三脚猫" type="application/atom+xml">
   
@@ -88,15 +88,46 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#Type of Java Collection </p>
+        <h1 id="Type-of-Java-Collection"><a href="#Type-of-Java-Collection" class="headerlink" title="Type of Java Collection"></a>Type of Java Collection</h1><p>Types of Collections in Java<br>The Java Collections Framework is divided into four main interfaces:</p>
+<p>List (Ordered Collection with Duplicates)<br>Set (Unique Elements, No Duplicates)<br>Queue (FIFO - First In, First Out)<br>Map (Key-Value Pair Collection)</p>
 <ol>
-<li>List(Ordered, allow duplicates)<br> Implementation: ArrayList ,LinkedList,Vector<br> Element are stored in an ordered sequence(index-based)<br> allow duplicate values<br> Example : ArrayList<integer> list=new ArrayList&lt;&gt;();</integer></li>
+<li>List (Ordered Collection with Duplicates)<br>A List is an ordered collection where elements can be duplicated and accessed using an index.</li>
 </ol>
+<p>Common Implementations of List:<br>ArrayList (Dynamic array, fast for retrieval, slow for insertion/deletion)<br>LinkedList (Doubly linked list, fast for insertion/deletion, slow for retrieval)<br>Vector (Similar to ArrayList, but synchronized for thread safety)<br>Stack (LIFO - Last In, First Out)<br>Example (ArrayList)<br>java<br>Copy<br>Edit<br>import java.util.*;</p>
+<p>public class ListExample {<br>    public static void main(String[] args) {<br>        List<string> list = new ArrayList&lt;&gt;();<br>        list.add(“Apple”);<br>        list.add(“Banana”);<br>        list.add(“Apple”); // Duplicates are allowed</string></p>
+<pre><code>    System.out.println(list); // Output: [Apple, Banana, Apple]
+}
+</code></pre><p>}</p>
+<ol start="2">
+<li>Set (Unique Elements, No Duplicates)<br>A Set is a collection that does not allow duplicate elements and does not guarantee order.</li>
+</ol>
+<p>Common Implementations of Set:<br>HashSet (Unordered, backed by a hash table)<br>LinkedHashSet (Maintains insertion order)<br>TreeSet (Sorted in natural order, backed by a tree)<br>Example (HashSet)<br>java<br>Copy<br>Edit<br>import java.util.*;</p>
+<p>public class SetExample {<br>    public static void main(String[] args) {<br>        Set<string> set = new HashSet&lt;&gt;();<br>        set.add(“Apple”);<br>        set.add(“Banana”);<br>        set.add(“Apple”); // Duplicate will be ignored</string></p>
+<pre><code>    System.out.println(set); // Output: [Apple, Banana] (Order may vary)
+}
+</code></pre><p>}</p>
+<ol start="3">
+<li>Queue (FIFO - First In, First Out)<br>A Queue follows the FIFO (First-In, First-Out) principle. Used for tasks like job scheduling.</li>
+</ol>
+<p>Common Implementations of Queue:<br>LinkedList (Can function as both List and Queue)<br>PriorityQueue (Elements are ordered based on priority)<br>ArrayDeque (Efficient double-ended queue)<br>Example (PriorityQueue)<br>java<br>Copy<br>Edit<br>import java.util.*;</p>
+<p>public class QueueExample {<br>    public static void main(String[] args) {<br>        Queue<integer> queue = new PriorityQueue&lt;&gt;();<br>        queue.add(30);<br>        queue.add(10);<br>        queue.add(20);</integer></p>
+<pre><code>    System.out.println(queue.poll()); // Output: 10 (Smallest element first)
+}
+</code></pre><p>}</p>
+<ol start="4">
+<li>Map (Key-Value Pair Collection)<br>A Map is not a part of the Collection interface but is part of the Java Collections Framework. It stores key-value pairs.</li>
+</ol>
+<p>Common Implementations of Map:<br>HashMap (Unordered key-value storage)<br>LinkedHashMap (Maintains insertion order)<br>TreeMap (Sorted in natural order)<br>Hashtable (Thread-safe version of HashMap)<br>Example (HashMap)<br>java<br>Copy<br>Edit<br>import java.util.*;</p>
+<p>public class MapExample {<br>    public static void main(String[] args) {<br>        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();<br>        map.put(“Apple”, 10);<br>        map.put(“Banana”, 20);<br>        map.put(“Apple”, 30); // Overwrites existing value</p>
+<pre><code>    System.out.println(map); // Output: {Apple=30, Banana=20} (Order may vary)
+}
+</code></pre><p>}</p>
+<p>When to Use Which Collection?<br>Use List (ArrayList, LinkedList, etc.) when you need ordered data and allow duplicates.<br>Use Set (HashSet, TreeSet, etc.) when you need unique values without duplicates.<br>Use Queue (PriorityQueue, LinkedList, etc.) when you need to process elements in a FIFO manner.<br>Use Map (HashMap, TreeMap, etc.) when you need key-value pairs.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://chenfengying.github.io/2025/02/16/Java-Collection/" data-id="cm780tvng0005c0vlk7u1r93z" class="article-share-link">Share</a>
+      <a data-url="https://chenfengying.github.io/2025/02/16/Java-Collection/" data-id="cm782mhlv00076cvl7afsm4uu" class="article-share-link">Share</a>
       
       
     </footer>

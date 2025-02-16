@@ -86,15 +86,46 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#Type of Java Collection </p>
+        <h1 id="Type-of-Java-Collection"><a href="#Type-of-Java-Collection" class="headerlink" title="Type of Java Collection"></a>Type of Java Collection</h1><p>Types of Collections in Java<br>The Java Collections Framework is divided into four main interfaces:</p>
+<p>List (Ordered Collection with Duplicates)<br>Set (Unique Elements, No Duplicates)<br>Queue (FIFO - First In, First Out)<br>Map (Key-Value Pair Collection)</p>
 <ol>
-<li>List(Ordered, allow duplicates)<br> Implementation: ArrayList ,LinkedList,Vector<br> Element are stored in an ordered sequence(index-based)<br> allow duplicate values<br> Example : ArrayList<integer> list=new ArrayList&lt;&gt;();</integer></li>
+<li>List (Ordered Collection with Duplicates)<br>A List is an ordered collection where elements can be duplicated and accessed using an index.</li>
 </ol>
+<p>Common Implementations of List:<br>ArrayList (Dynamic array, fast for retrieval, slow for insertion/deletion)<br>LinkedList (Doubly linked list, fast for insertion/deletion, slow for retrieval)<br>Vector (Similar to ArrayList, but synchronized for thread safety)<br>Stack (LIFO - Last In, First Out)<br>Example (ArrayList)<br>java<br>Copy<br>Edit<br>import java.util.*;</p>
+<p>public class ListExample {<br>    public static void main(String[] args) {<br>        List<string> list = new ArrayList&lt;&gt;();<br>        list.add(“Apple”);<br>        list.add(“Banana”);<br>        list.add(“Apple”); // Duplicates are allowed</string></p>
+<pre><code>    System.out.println(list); // Output: [Apple, Banana, Apple]
+}
+</code></pre><p>}</p>
+<ol start="2">
+<li>Set (Unique Elements, No Duplicates)<br>A Set is a collection that does not allow duplicate elements and does not guarantee order.</li>
+</ol>
+<p>Common Implementations of Set:<br>HashSet (Unordered, backed by a hash table)<br>LinkedHashSet (Maintains insertion order)<br>TreeSet (Sorted in natural order, backed by a tree)<br>Example (HashSet)<br>java<br>Copy<br>Edit<br>import java.util.*;</p>
+<p>public class SetExample {<br>    public static void main(String[] args) {<br>        Set<string> set = new HashSet&lt;&gt;();<br>        set.add(“Apple”);<br>        set.add(“Banana”);<br>        set.add(“Apple”); // Duplicate will be ignored</string></p>
+<pre><code>    System.out.println(set); // Output: [Apple, Banana] (Order may vary)
+}
+</code></pre><p>}</p>
+<ol start="3">
+<li>Queue (FIFO - First In, First Out)<br>A Queue follows the FIFO (First-In, First-Out) principle. Used for tasks like job scheduling.</li>
+</ol>
+<p>Common Implementations of Queue:<br>LinkedList (Can function as both List and Queue)<br>PriorityQueue (Elements are ordered based on priority)<br>ArrayDeque (Efficient double-ended queue)<br>Example (PriorityQueue)<br>java<br>Copy<br>Edit<br>import java.util.*;</p>
+<p>public class QueueExample {<br>    public static void main(String[] args) {<br>        Queue<integer> queue = new PriorityQueue&lt;&gt;();<br>        queue.add(30);<br>        queue.add(10);<br>        queue.add(20);</integer></p>
+<pre><code>    System.out.println(queue.poll()); // Output: 10 (Smallest element first)
+}
+</code></pre><p>}</p>
+<ol start="4">
+<li>Map (Key-Value Pair Collection)<br>A Map is not a part of the Collection interface but is part of the Java Collections Framework. It stores key-value pairs.</li>
+</ol>
+<p>Common Implementations of Map:<br>HashMap (Unordered key-value storage)<br>LinkedHashMap (Maintains insertion order)<br>TreeMap (Sorted in natural order)<br>Hashtable (Thread-safe version of HashMap)<br>Example (HashMap)<br>java<br>Copy<br>Edit<br>import java.util.*;</p>
+<p>public class MapExample {<br>    public static void main(String[] args) {<br>        Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();<br>        map.put(“Apple”, 10);<br>        map.put(“Banana”, 20);<br>        map.put(“Apple”, 30); // Overwrites existing value</p>
+<pre><code>    System.out.println(map); // Output: {Apple=30, Banana=20} (Order may vary)
+}
+</code></pre><p>}</p>
+<p>When to Use Which Collection?<br>Use List (ArrayList, LinkedList, etc.) when you need ordered data and allow duplicates.<br>Use Set (HashSet, TreeSet, etc.) when you need unique values without duplicates.<br>Use Queue (PriorityQueue, LinkedList, etc.) when you need to process elements in a FIFO manner.<br>Use Map (HashMap, TreeMap, etc.) when you need key-value pairs.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://chenfengying.github.io/2025/02/16/Java-Collection/" data-id="cm780tvng0005c0vlk7u1r93z" class="article-share-link">Share</a>
+      <a data-url="https://chenfengying.github.io/2025/02/16/Java-Collection/" data-id="cm782mhlv00076cvl7afsm4uu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -138,7 +169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://chenfengying.github.io/2022/08/27/Jmeter-issue/" data-id="cm780tvnj0007c0vlq962r5tp" class="article-share-link">Share</a>
+      <a data-url="https://chenfengying.github.io/2022/08/27/Jmeter-issue/" data-id="cm782mhlx00086cvly21czto1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -176,7 +207,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://chenfengying.github.io/2022/07/03/eclipse-connect-the-mysql-database/" data-id="cm780tvo9000mc0vla09ct2qv" class="article-share-link">Share</a>
+      <a data-url="https://chenfengying.github.io/2022/07/03/eclipse-connect-the-mysql-database/" data-id="cm782mhmb000g6cvlyg9r3jz5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Automation/">Automation</a></li></ul>
@@ -254,7 +285,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://chenfengying.github.io/2021/10/11/pycharm-调试技巧/" data-id="cm780tvoi000vc0vl5evt0bv8" class="article-share-link">Share</a>
+      <a data-url="https://chenfengying.github.io/2021/10/11/pycharm-调试技巧/" data-id="cm782mhmt000w6cvlsje6i99y" class="article-share-link">Share</a>
       
       
     </footer>
@@ -305,7 +336,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://chenfengying.github.io/2021/10/11/python3-typing/" data-id="cm780tvop0013c0vlx7coul0i" class="article-share-link">Share</a>
+      <a data-url="https://chenfengying.github.io/2021/10/11/python3-typing/" data-id="cm782mhnb00186cvl091vwevy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -411,7 +442,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://chenfengying.github.io/2021/08/10/深入解析常见三次握手异常/" data-id="cm780tvp8001jc0vlt6b71mwq" class="article-share-link">Share</a>
+      <a data-url="https://chenfengying.github.io/2021/08/10/深入解析常见三次握手异常/" data-id="cm782mhnl001h6cvlln28gfww" class="article-share-link">Share</a>
       
       
     </footer>
@@ -479,7 +510,7 @@ set_redis(lock_username, true, 300s)
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://chenfengying.github.io/2021/08/09/登录接口的安全思考/" data-id="cm780tvpj001oc0vl657q9pic" class="article-share-link">Share</a>
+      <a data-url="https://chenfengying.github.io/2021/08/09/登录接口的安全思考/" data-id="cm782mhnw001m6cvlj1jcq9bj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -521,7 +552,7 @@ set_redis(lock_username, true, 300s)
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://chenfengying.github.io/2021/08/04/RESTful-API-中Http-状态码的定义/" data-id="cm780tvnq000bc0vlmr9jlusm" class="article-share-link">Share</a>
+      <a data-url="https://chenfengying.github.io/2021/08/04/RESTful-API-中Http-状态码的定义/" data-id="cm782mhm3000c6cvlauvfvd88" class="article-share-link">Share</a>
       
       
     </footer>
@@ -732,7 +763,7 @@ location = /50x.html {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://chenfengying.github.io/2021/07/27/什么是Nginx以及使用场景/" data-id="cm780tvoy0019c0vlmasx3zl1" class="article-share-link">Share</a>
+      <a data-url="https://chenfengying.github.io/2021/07/27/什么是Nginx以及使用场景/" data-id="cm782mhnd001a6cvlsjikwktj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -808,7 +839,7 @@ location = /50x.html {
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://chenfengying.github.io/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/" data-id="cm780tvp0001bc0vl4l2ftn48" class="article-share-link">Share</a>
+      <a data-url="https://chenfengying.github.io/2021/07/26/正确甄别API-REST-API-RESTFUL-API-和-Web-Service/" data-id="cm782mhnf001c6cvl9tbtenj3" class="article-share-link">Share</a>
       
       
     </footer>
